@@ -1,7 +1,36 @@
 #!/usr/bin/python3
 import os
+import sys
 from pathlib import Path
 from datetime import date
+
+ 
+def addWeight(user):
+    print('Input date yyyy-mm-dd: ', end='')
+    validDate = False
+    while(not validDate):
+        dateString = input()
+        try:
+            wtDate = date.fromisoformat(dateString)
+            validDate = True
+        except:
+            print('Invalid date enter a date in yyyy-mm-dd', end='')
+    validWeight = False
+    print(f'Input a weight for {wtDate}: ', end='')
+    while(not validWeight):
+        weightStr = input()
+        try:
+            weight = int(weightStr)
+            validWeight = True
+        except:
+            print('Invalid weight enter a weight for {wtDate}: ', end='')
+
+    with open(f'users/{user}.wt', 'a', encoding='utf-8') as f:
+        #f.write()
+        pass 
+        
+    sys.exit()
+        
 
 '''
 os.remove('test.txt')
@@ -50,12 +79,51 @@ if userNum == 0:
         newUser = input().lower().strip()
         if newUser not in users:
             with open(f'users/{newUser}.wt', 'x', encoding='utf-8') as f:
-                #write creation date
-                f.write(f'{newUser} {date.today()}\n')
-                continue
+                f.write(f'{newUser} {date.today()} c-None\n')
+            user = newUser
             break
         else:
             print('Username already in use')
+else:
+    user = users[userNum -1]
+
+print(f'\nUser: {user.capitalize()}')
+
+with open(f'users/{user}.wt', 'r', encoding='utf-8') as f:
+    current = f.readline().split(' ')[2].split('-')[1]
+    print(f'current weight: {current}')
+while(True):
+    print('(1) Add Weight')
+    print('(0) Exit')
+    print('Input action: ', end='')
+    action = input().strip()
+    match action:
+        case '0':
+            sys.exit()
+        case '1':
+            addWeight(user)
+
+
+
+#enter weight
+#set goal weight
+#average weight loss per day
+#weight loss history
+
+def main():
+
+
+'''
+class user:
+    def __init__(self):
+        pass
+
+    def addWeight(self):
+'''
+
+
+if __name__ == "__main__":
+    main() 
 
 
 
